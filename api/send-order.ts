@@ -7,7 +7,7 @@ export default async function handler(req: any, res: any) {
   try {
     const { userInfo, messageToken, data } = req.body;
 
-    const response = await fetch("https://your-supabase-url/functions/v1/send-order-notification", {
+    const response = await fetch("https://jyvgikwgrzhjrwqljkns.supabase.co/functions/v1/send-order-notification", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
