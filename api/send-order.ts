@@ -42,6 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     const result = await response.json();
     console.log("✅ Supabase response:", JSON.stringify(result, null, 2));
+    res.setHeader("Content-Type", "application/json");
     res.status(200).json(result);
   } catch (err) {
     console.error("🔥 Proxy error:", err);
