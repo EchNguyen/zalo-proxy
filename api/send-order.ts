@@ -7,6 +7,11 @@ export default async function handler(req: any, res: any) {
   try {
     const { userInfo, messageToken, data } = req.body;
 
+    // 🔍 Log dữ liệu nhận được
+    console.log("📦 userInfo:", userInfo);
+    console.log("🔑 messageToken:", messageToken);
+    console.log("🧾 data:", data);
+
     const response = await fetch("https://jyvgikwgrzhjrwqljkns.supabase.co/functions/v1/send-order-notification", {
       method: "POST",
       headers: {
@@ -17,8 +22,14 @@ export default async function handler(req: any, res: any) {
       body: JSON.stringify({ userInfo, messageToken, data }),
     });
 
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Supabase error:", errorText);
+      return res.status(response.status).json({ error: errorText });
+    }
+
     const result = await response.json();
-    res.status(response.status).json(result);
+    res.status(200).json(result);
   } catch (err) {
     console.error("Proxy error:", err);
     res.status(500).json({ error: "Proxy failed" });
